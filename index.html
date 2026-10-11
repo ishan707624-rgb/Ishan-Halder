@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mr. Ishan Halder | Online Verified Business Partner</title>
+
+  <meta name="description" content="Official profile of Mr. Ishan Halder, Online Verified Business Partner. Contact for professional enquiries.">
+  <meta name="author" content="Mr. Ishan Halder">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#030712">
+
+  <meta property="og:title" content="Mr. Ishan Halder | Official Profile">
+  <meta property="og:description" content="Online Verified Business Partner. Official profile and contact information.">
+  <meta property="og:type" content="website">
+
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #030712;
+      color: #f3f4f6;
+      line-height: 1.7;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Live Animated Canvas Background */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .navbar {
+      width: 100%;
+      padding: 20px;
+      border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      color: #22d3ee;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 40px auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Scroll Reveal Initial States */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .profile-card {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 48px 24px;
+      background: linear-gradient(145deg, rgba(11, 19, 38, 0.95), rgba(7, 13, 26, 0.95));
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      border-radius: 30px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(34, 211, 238, 0.1);
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15%;
+      width: 70%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #22d3ee, transparent);
+      animation: shimmer 3s infinite linear;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Perfect Image Alignment & Sizing */
+    .profile-photo-wrapper {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 20px;
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      border-radius: 50%;
+      display: block;
+      box-shadow: 0 0 25px rgba(34, 211, 238, 0.3);
+      transition: transform 0.4s ease;
+    }
+
+    .profile-photo:hover {
+      transform: scale(1.05);
+    }
+
+    .verified-badge-icon {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background: #22d3ee;
+      color: #030712;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      border: 3px solid #030712;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.25;
+      color: #ffffff;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .verified-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+      padding: 9px 18px;
+      color: #22d3ee;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.4);
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .intro {
+      max-width: 520px;
+      margin: 18px auto 28px;
+      color: #94a3b8;
+      font-size: 15px;
+    }
+
+    /* Proud / Professional Status Quote Box */
+    .proud-quote {
+      max-width: 560px;
+      margin: 0 auto 25px;
+      padding: 15px 20px;
+      background: rgba(34, 211, 238, 0.05);
+      border-left: 3px solid #22d3ee;
+      border-radius: 0 12px 12px 0;
+      color: #e2e8f0;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      min-width: 170px;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      opacity: 0.95;
+    }
+
+    .whatsapp {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+    }
+
+    .call {
+      background: linear-gradient(135deg, #06b6d4, #22d3ee);
+      color: #030712;
+    }
+
+    .section {
+      margin-top: 28px;
+      padding: 30px;
+      background: rgba(11, 19, 38, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .section:hover {
+      border-color: rgba(34, 211, 238, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .section h2 {
+      margin-bottom: 16px;
+      color: #22d3ee;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section p {
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+
+    .contact-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(30, 41, 59, 0.6);
+    }
+
+    .contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .contact-label {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .contact-value {
+      color: #f1f5f9;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+      text-align: right;
+    }
+
+    .contact-value a {
+      color: #22d3ee;
+      transition: color 0.2s;
+    }
+
+    .contact-value a:hover {
+      color: #67e8f9;
+      text-decoration: underline;
+    }
+
+    /* Address Grid Box Styling */
+    .address-box {
+      margin-top: 15px;
+      padding: 18px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      border-radius: 12px;
+    }
+
+    .address-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .address-info {
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+
+    .address-info strong {
+      color: #22d3ee;
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .small-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 9px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      color: #22d3ee;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+    }
+
+    .small-btn:hover {
+      background: #22d3ee;
+      color: #030712;
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+    }
+
+    footer {
+      padding: 30px 15px;
+      text-align: center;
+      border-top: 1px solid rgba(34, 211, 238, 0.2);
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 40px;
+      background: rgba(3, 7, 18, 0.9);
+    }
+
+    footer strong {
+      color: #f1f5f9;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 20px auto;
+        padding: 14px;
+      }
+      .profile-card {
+        padding: 32px 18px;
+      }
+      .section {
+        padding: 22px 18px;
+      }
+      .contact-item {
+        align-items: flex-start;
+        flex-direction: column;
+        text-align: left;
+      }
+      .contact-value {
+        text-align: left;
+      }
+      .btn {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Live Animated Particle Background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <header class="navbar reveal">
+    <a class="brand" href="#home">Mr. Ishan Halder</a>
+  </header>
+
+  <main class="container">
+
+    <!-- PROFILE SECTION -->
+    <section class="profile-card reveal" id="home">
+
+      <div class="profile-photo-wrapper">
+        <img
+          class="profile-photo"
+          src="https://pxdrop.online/raw/db5m3qq81qec73f6otbg"
+          alt="Mr. Ishan Halder"
+        >
+        <div class="verified-badge-icon" title="Verified Partner">
+          <i class="fa-solid fa-check"></i>
+        </div>
+      </div>
+
+      <h1>Mr. Ishan Halder</h1>
+
+      <div class="verified-title">
+        <i class="fa-solid fa-shield-halved"></i> ONLINE VERIFIED BUSINESS PARTNER
+      </div>
+
+      <p class="intro">
+        Welcome to my official personal profile.
+        For business enquiries and direct contact,
+        please use the options below.
+      </p>
+
+      <!-- Proud Status English Text -->
+      <div class="proud-quote">
+        "Proudly shaping success, building trust, and driving excellence as a verified digital leader."
+      </div>
+
+      <div class="buttons">
+        <a
+          class="btn whatsapp"
+          href="https://wa.me/918350023583"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp Me
+        </a>
+
+        <a class="btn call" href="tel:+918927357076">
+          <i class="fa-solid fa-phone"></i> Call Me
+        </a>
+      </div>
+
+    </section>
+
+    <!-- BUSINESS DETAILS -->
+    <section class="section reveal" id="about">
+      <h2><i class="fa-solid fa-briefcase"></i> Professional Details</h2>
+      <p>
+        Online Verified Business Partner — Dedicated to delivering trusted solutions, high-level collaborations, and maintaining absolute professional standards.
+      </p>
+    </section>
+
+    <!-- CONTACT DETAILS -->
+    <section class="section reveal" id="contact">
+      <h2><i class="fa-solid fa-address-book"></i> Contact Information</h2>
+
+      <div class="contact-item">
+        <div>
+          <div class="contact-label">WhatsApp Number</div>
+          <div class="contact-value">
+            <a href="https://wa.me/918350023583"
+               target="_blank"
+               rel="noopener noreferrer">
+              +91 83500 23583
+            </a>
+          </div>
+        </div>
+
+        <a class="small-btn"
+           href="https://wa.me/918350023583"
+           target="_blank"
+           rel="noopener noreferrer">
+          <i class="fa-brands fa-whatsapp"></i> Message
+        </a>
+      </div>
+
+      <div class="contact-item">
+        <div>
+          <div class="contact-label">Phone / Call</div>
+          <div class="contact-value">
+            <a href="tel:+918927357076">
+              +91 89273 57076
+            </a>
+          </div>
+        </div>
+
+        <a class="small-btn" href="tel:+918927357076">
+          <i class="fa-solid fa-phone"></i> Call Now
+        </a>
+      </div>
+
+      <!-- ADDRESS SECTION -->
+      <div class="address-box">
+        <div class="contact-label" style="margin-bottom: 8px; color: #22d3ee; font-weight: 700;">
+          <i class="fa-solid fa-location-dot"></i> Official Address
+        </div>
+        <div class="address-grid">
+          <div class="address-info">
+            <strong>Police Station</strong>
+            Bagdah
+          </div>
+          <div class="address-info">
+            <strong>District</strong>
+            North 24 Parganas
+          </div>
+          <div class="address-info">
+            <strong>State & Country</strong>
+            West Bengal, India
+          </div>
+          <div class="address-info">
+            <strong>PIN Code</strong>
+            743251
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="reveal">
+    <p>
+      © <span id="year"></span>
+      <strong>Mr. Ishan Halder</strong>
+    </p>
+    <p style="margin-top: 6px;">Personal Profile | Online Verified Business Partner</p>
+  </footer>
+
+  <!-- Live Background Particle & Scroll Reveal Animation Script -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Scroll Reveal Animation Observer
+    const observerOptions = {
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Background Canvas Particles
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles = [];
+    const particleCount = window.innerWidth < 768 ? 30 : 60;
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2.2 + 0.8,
+        color: 'rgba(34, 211, 238, 0.45)',
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5
+      });
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      });
+
+      // Draw subtle connecting lines
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(34, 211, 238, ${0.1 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+  </script>
+
+</body>
+</html>
